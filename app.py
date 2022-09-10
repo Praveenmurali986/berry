@@ -5,8 +5,11 @@ import time
 
 
 
+
 MAX_LIMIT=100
 MIN_LIMIT=3
+BERRY='🍎 '
+
 
 class berry:
     def __init__(self,no_of_berries,multiplayer) :
@@ -29,7 +32,7 @@ class berry:
                 print(f'i have eaten {valid} berries.')
                 return valid
             else:
-                eaten_berries=input(f'{player} enter the no of berries you want to eat(valid no of berries you can eat is 1 , 2 or 3). ')
+                eaten_berries=input(f'{player} enter the no of berries you want to eat(valid no of berries you can eat is 1 , 2 or 3). ').lower().strip()
                 if eaten_berries =='e':
                     return eaten_berries
                 elif eaten_berries in ['1','2','3']:
@@ -75,7 +78,7 @@ def check_exit(user_input):
 
 def ask_for_no_of_berries():
     while True:
-        no_of_berries=input(f'enter no of berries you want to create(max limit is {MAX_LIMIT} and min limit is {MIN_LIMIT}). ')
+        no_of_berries=input(f'enter no of berries you want to create(max limit is {MAX_LIMIT} and min limit is {MIN_LIMIT}). ').lower().strip()
 
         if no_of_berries in [str(i) for i in range(MIN_LIMIT,MAX_LIMIT+1)] or no_of_berries == 'e':
             return no_of_berries
@@ -86,7 +89,7 @@ def ask_for_no_of_berries():
 
 def ask_for_multiplayer():
     while True:
-        multiplayer=input('enter "y" for multiplayer or "n" to play with computer. ').lower()
+        multiplayer=input('enter "y" for multiplayer or "n" to play with computer. ').lower().strip()
         if multiplayer in ['y','n','e']:
             return multiplayer
         else:
@@ -95,7 +98,7 @@ def ask_for_multiplayer():
 
 def hort():
     while True:
-        toss=input('tossing for the first chance.head(h) or tail(t).')
+        toss=input('tossing for the first chance.head(h) or tail(t).').lower().strip()
         if toss in ['h','t','e']:
             return toss
         else:
@@ -108,7 +111,7 @@ def tossing(hort):
         time.sleep(.5)
         return True
     else:
-        print('bad luck for you. computer won the toss')
+        print('"rotten" luck. computer won the toss')
         time.sleep(1.5)
         return False
 
@@ -116,12 +119,7 @@ def tossing(hort):
 
 
 def main():
-    print('''\nthis is a simple game where eigther play with computer or one of your friends.
-you have to simply eat berries to live.
-you can only eat maximum of 3 berries a time.
-try not to eat roten berry unless you want to be dead.
-feel free to enter "e" anytime to exit the game.\n
-             ================= good luck =================\n''')
+    
     while True:
 
         #asking for multiplayer or not.
@@ -139,7 +137,7 @@ feel free to enter "e" anytime to exit the game.\n
 
         #setting a berry as rot.
         straw_berries=straw_berry.set_a_berry_as_rot(straw_berries=straw_berries)
-        print('\n',['@' for i in range(len(straw_berries))],'\n')
+        print('\n',BERRY*len(straw_berries),'\n')
 
         while True:
             if multiplayer=='y':
@@ -151,7 +149,7 @@ feel free to enter "e" anytime to exit the game.\n
                     print('\ncongrats player 2 won\n\n')
                     main()
                 straw_berries=straw_berries[int(p1_eaten_berries):]
-                print('\n',['@' for i in range(len(straw_berries))],'\n')
+                print('\n',BERRY*len(straw_berries),'\n')
 
 
                 #for player 2
@@ -162,7 +160,7 @@ feel free to enter "e" anytime to exit the game.\n
                     print('\ncongrats player 1 won\n\n')
                     main()
                 straw_berries=straw_berries[int(p2_eaten_berries):]
-                print('\n',['@' for i in range(len(straw_berries))],'\n')
+                print('\n',BERRY*len(straw_berries),'\n')
             else:
                 #head or tail
                 ht=hort()
@@ -178,7 +176,7 @@ feel free to enter "e" anytime to exit the game.\n
                             time.sleep(.5)
                             main()
                         straw_berries=straw_berries[int(computer_eaten_berries):]
-                        print('\n',['@' for i in range(len(straw_berries))],'\n')
+                        print('\n',BERRY*len(straw_berries),'\n')
                         toss=True
 
                     if toss:
@@ -192,11 +190,21 @@ feel free to enter "e" anytime to exit the game.\n
                             time.sleep(.5)
                             main()
                         straw_berries=straw_berries[int(player_eaten_berries):]
-                        print('\n',['@' for i in range(len(straw_berries))],'\n')
+                        print('\n',BERRY*len(straw_berries),'\n')
                         toss=False
                         time.sleep(1.3)
 
 
+
         
-if __name__=='__main__':
+if __name__=='__main__': 
+    print('''
+============================= \033[1m Hi \033[0m============================================
+
+this is a simple game where eigther play with computer or one of your friends.
+you have to simply eat berries to live.
+you can only eat maximum of 3 berries a time.
+try not to eat roten berry unless you want to be dead.
+feel free to enter "e" anytime to exit the game.\n
+============================= \033[1m good luck \033[0m ====================================\n''')  
     main()
